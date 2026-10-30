@@ -2,6 +2,8 @@
 
 一个面向减脂期人群的响应式健康记录网站。项目强调温和记录和长期趋势，不鼓励极端节食，也不用单日体重评价用户。
 
+**在线演示**：<https://fqq-537.github.io/warm-health-diary/>
+
 ![首页概览](docs/screenshots/home.png)
 
 > 第一次打开是空白记录。想快速查看完整效果，进入「数据管理 → 载入示例数据」，会填入一套虚构的近三周记录，随时可以清空。
@@ -89,7 +91,9 @@ docs/screenshots/  # README 使用的界面截图
 
 ## GitHub Pages
 
-仓库已包含 `.github/workflows/deploy.yml`。推送到 GitHub 的 `main` 分支后，在仓库 **Settings → Pages → Source** 中选择 **GitHub Actions**，工作流会构建并部署 `dist`。
+仓库已包含 `.github/workflows/deploy.yml`。推送到 `main` 分支后由 GitHub Actions 自动构建并部署 `dist`，线上地址：<https://fqq-537.github.io/warm-health-diary/>
+
+首次使用需要在仓库 **Settings → Pages → Source** 中选择 **GitHub Actions**；工作流中的 `configure-pages` 已设置 `enablement: true`，也可以自动完成这一步。
 
 ```bash
 git remote add origin <你的仓库地址>
