@@ -1,21 +1,24 @@
-import { createDemoData } from '../data/demo'
+import { createEmptyData } from '../data/emptyData'
 import { todayISO } from './date'
 import { validateImportedData } from './validation'
 
-export const STORAGE_KEY = 'warm-health-diary:v1'
+export const STORAGE_KEY = 'warm-health-diary:v2'
+const LEGACY_STORAGE_KEY = 'warm-health-diary:v1'
 
 export function loadStoredData() {
   try {
+    // 旧版本自动预填过演示数据，升级时一并移除。
+    localStorage.removeItem(LEGACY_STORAGE_KEY)
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return { data: createDemoData(), notice: '' }
+    if (!raw) return { data: createEmptyData(), notice: '' }
     const parsed = JSON.parse(raw)
     const error = validateImportedData(parsed)
     if (error) {
-      return { data: createDemoData(), notice: '原有数据无法读取，已载入演示数据。你可以从备份文件恢复记录。' }
+      return { data: createEmptyData(), notice: '原有数据无法读取，已从空白记录开始。你可以从备份文件恢复记录。' }
     }
     return { data: parsed, notice: '' }
   } catch {
-    return { data: createDemoData(), notice: '浏览器中的数据无法读取，已载入演示数据。' }
+    return { data: createEmptyData(), notice: '浏览器中的数据无法读取，已从空白记录开始。' }
   }
 }
 

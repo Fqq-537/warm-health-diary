@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from 'react'
-import { createDemoData, createEmptyData } from '../data/demo'
+import { createEmptyData } from '../data/emptyData'
 import { loadStoredData, saveData } from '../lib/storage'
 
 function withMeta(data, changes) {
@@ -45,8 +45,6 @@ function reducer(data, action) {
       return { ...action.data, meta: { ...action.data.meta, updatedAt: new Date().toISOString() } }
     case 'CLEAR_DATA':
       return createEmptyData()
-    case 'RESTORE_DEMO':
-      return createDemoData()
     default:
       return data
   }
@@ -80,7 +78,6 @@ export function useHealthData() {
     deleteCycle: (id) => dispatch({ type: 'DELETE_CYCLE', id }),
     importData: (imported) => dispatch({ type: 'IMPORT_DATA', data: imported }),
     clearData: () => dispatch({ type: 'CLEAR_DATA' }),
-    restoreDemo: () => dispatch({ type: 'RESTORE_DEMO' }),
   }
 
   return { data, actions, storageWarning }

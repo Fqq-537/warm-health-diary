@@ -18,7 +18,7 @@ export default function HomePage({ data, onNavigate }) {
     { page: 'weight', icon: 'scale', label: '最近体重', value: weight ? weight.weightKg : '—', unit: 'kg', note: weight ? `${formatDate(weight.date)} 记录` : '记录第一次体重', tone: 'peach' },
     { page: 'meals', icon: 'flame', label: '今日摄入', value: caloriesForDate(data.meals, today), unit: 'kcal', note: `${todayMeals.length} 条饮食记录`, tone: 'cream' },
     { page: 'workout', icon: 'dumbbell', label: '今日运动', value: `${completed}/${todayWorkouts.length}`, unit: '项', note: completed ? '每一次活动都值得肯定' : '选择喜欢的方式动起来', tone: 'sage' },
-    { page: 'cycle', icon: 'flower', label: '周期状态', value: cycle.current ? `第 ${cycle.currentDay} 天` : '已记录', unit: '', note: cycle.average ? `平均间隔约 ${cycle.average} 天` : `${data.cycles.length} 段周期记录`, tone: 'rose' },
+    { page: 'cycle', icon: 'flower', label: '周期状态', value: cycle.current ? `第 ${cycle.currentDay} 天` : (data.cycles.length ? '已记录' : '未记录'), unit: '', note: cycle.average ? `平均间隔约 ${cycle.average} 天` : `${data.cycles.length} 段周期记录`, tone: 'rose' },
   ]
 
   return (

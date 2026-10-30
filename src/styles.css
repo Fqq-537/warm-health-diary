@@ -309,7 +309,7 @@ input[type="date"] { color-scheme: light; }
 .data-counts span { color: var(--muted); font-size: 11px; }
 .data-counts strong { grid-column: 1 / -1; font-size: 25px; }
 .data-counts small { color: var(--muted); font-size: 11px; font-weight: 400; }
-.data-actions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.data-actions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .data-action-card { padding: 25px; }
 .data-action-card h3 { margin: 16px 0 7px; font-size: 16px; }
 .data-action-card p { min-height: 38px; margin-bottom: 18px; color: var(--muted); font-size: 11px; line-height: 1.7; }
