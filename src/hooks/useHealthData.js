@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from 'react'
 import { createEmptyData } from '../data/emptyData'
+import { createSampleData } from '../data/sampleData'
 import { loadStoredData, saveData } from '../lib/storage'
 
 function withMeta(data, changes) {
@@ -43,6 +44,8 @@ function reducer(data, action) {
       return withMeta(data, { cycles: data.cycles.filter((item) => item.id !== action.id) })
     case 'IMPORT_DATA':
       return { ...action.data, meta: { ...action.data.meta, updatedAt: new Date().toISOString() } }
+    case 'LOAD_SAMPLE':
+      return createSampleData()
     case 'CLEAR_DATA':
       return createEmptyData()
     default:
@@ -77,6 +80,7 @@ export function useHealthData() {
     updateCycle: (id, changes) => dispatch({ type: 'UPDATE_CYCLE', id, changes }),
     deleteCycle: (id) => dispatch({ type: 'DELETE_CYCLE', id }),
     importData: (imported) => dispatch({ type: 'IMPORT_DATA', data: imported }),
+    loadSample: () => dispatch({ type: 'LOAD_SAMPLE' }),
     clearData: () => dispatch({ type: 'CLEAR_DATA' }),
   }
 

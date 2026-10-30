@@ -37,11 +37,20 @@ export default function DataPage({ data, actions, notify }) {
     }
   }
 
+  const loadSample = () => {
+    if (data.weights.length || data.meals.length || data.workouts.length || data.cycles.length) {
+      if (!window.confirm('载入示例数据会替换当前全部记录，且无法撤销。建议先导出备份。确定继续吗？')) return
+    }
+    actions.loadSample()
+    notify('示例数据已载入，可以直接体验各页面。')
+  }
+
   return (
     <div className="page-stack data-page">
       <section className="data-intro"><span className="round-icon sage"><Icon name="database" size={26} /></span><div><h2>记录只属于你</h2><p>所有数据仅保存在当前浏览器，不会上传到服务器。清除浏览器数据或更换设备前，请先导出备份。</p></div></section>
       <section className="data-counts">{counts.map(([label, count, icon]) => <div className="card" key={label}><Icon name={icon} size={20} /><span>{label}</span><strong>{count}<small> 条</small></strong></div>)}</section>
       <div className="data-actions-grid">
+        <section className="card data-action-card"><span className="round-icon cream"><Icon name="sparkles" /></span><h3>载入示例数据</h3><p>填入一套虚构的近三周记录，方便快速浏览各页面效果。随时可以清空。</p><button className="secondary-button" onClick={loadSample}>载入示例 <Icon name="sparkles" size={17} /></button></section>
         <section className="card data-action-card"><span className="round-icon peach"><Icon name="download" /></span><h3>导出完整备份</h3><p>将全部记录保存为 JSON 文件，可用于换设备或留档。</p><button className="primary-button" onClick={() => { exportData(data); notify('备份文件已开始下载。') }}>导出 JSON <Icon name="download" size={17} /></button></section>
         <section className="card data-action-card"><span className="round-icon sage"><Icon name="upload" /></span><h3>从备份恢复</h3><p>选择本项目导出的文件，校验通过后替换当前数据。</p><input ref={fileInput} hidden type="file" accept=".json,application/json" onChange={importFile} /><button className="secondary-button" disabled={importing} onClick={() => fileInput.current?.click()}>{importing ? '正在校验…' : '选择 JSON 文件'} <Icon name="upload" size={17} /></button></section>
         <section className="card data-action-card danger-card"><span className="round-icon rose"><Icon name="trash" /></span><h3>清空全部记录</h3><p>删除当前浏览器里的所有体重、饮食、运动与周期记录，操作无法撤销。</p><button className="danger-button" onClick={clear}>清空数据 <Icon name="trash" size={17} /></button></section>
